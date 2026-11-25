@@ -7,9 +7,13 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import * as zlib from "node:zlib";
+import { fileURLToPath } from "node:url";
 
-const ENTRY_DIR: string = "/home/hatch/workspace/makefun/news-image-20261125/entry-v3-build";
-const OUT_PATH: string = "/output/entry.png";
+// Paths are resolved from THIS script's location and from the environment,
+// never from a hardcoded dev-machine path or the working directory: in the
+// grader the repo is mounted read-only at /bot and the cwd is not /bot.
+const ENTRY_DIR: string = path.dirname(fileURLToPath(import.meta.url));
+const OUT_PATH: string = path.join(process.env.MAKEFUN_OUTPUT_DIR || "/output", "entry.png");
 const W: number = 1024;
 const H: number = 1024;
 
